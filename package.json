@@ -1,0 +1,75 @@
+{
+  "name": "tvlaupdate_server",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "jest -i --colors --verbose --forceExit --coverage --coverageReporters=text-lcov ",
+    "testOLD": "jest -i --colors --verbose --forceExit --detectOpenHandles --coverage --coverageReporters=text-lcov ",
+    "coverage": "jest -i --coverage",
+    "coverage:coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls"
+  },
+  "dependencies": {
+    "async": "^2.6.1",
+    "aws-sdk": "^2.691.0",
+    "axios": "^0.18.0",
+    "big-integer": "^1.6.43",
+    "chokidar": "^3.4.1",
+    "debug": "^4.3.3",
+    "dotenv": "^8.0.0",
+    "express": "^4.18.1",
+    "finalhandler": "latest",
+    "flat": "latest",
+    "http": "0.0.0",
+    "http-status": "^1.5.2",
+    "https": "^1.0.0",
+    "is-empty": "latest",
+    "jest": "^28.1.3",
+    "justwatch-api": "^1.0.3",
+    "md5": "^2.2.1",
+    "minio": "^7.0.28",
+    "mkdirp": "^1.0.4",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.25",
+    "mongoose": "^5.4.0",
+    "morgan": "latest",
+    "multi-rest": "^2.0.2",
+    "node-cache": "^5.1.0",
+    "nodemailer": "^5.1.0",
+    "nodemon": "^1.19.4",
+    "path": "^0.12.7",
+    "prom-client": "^14.0.1",
+    "prom-pushgateway": "^0.10.1",
+    "redis": "^2.8.0",
+    "request": "^2.88.0",
+    "request-ip": "^2.1.3",
+    "request-promise": "^4.2.4",
+    "restify": "4.1.1",
+    "restify-paginate": "latest",
+    "through": "latest",
+    "underscore": "latest",
+    "utf8-length": "0.0.1",
+    "uuid": "^3.3.2",
+    "xmlbuilder": "latest",
+    "youtube-search-promise": "^1.0.3"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "jest": {
+    "collectCoverage": true
+  },
+  "devDependencies": {
+    "bunyan-debug-stream": "^1.0.8",
+    "chai": "latest",
+    "chai-json-schema": "latest",
+    "eslint": "^4.12.1",
+    "mocha": "^5.2.0",
+    "run-when-changed": "^2.0.3",
+    "supertest": "^3.4.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://vaibhav_ingale@bitbucket.org/vaibhav_ingale/cw-library-server.git"
+  }
+}

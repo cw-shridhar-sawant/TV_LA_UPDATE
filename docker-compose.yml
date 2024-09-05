@@ -1,0 +1,16 @@
+version: '3'
+services:
+  tvlaupdate_server:
+    build: .
+    container_name: tvlaupdate
+    ports:
+      - "${HTTP_PORT}:${HTTP_PORT}"
+    restart: always
+    env_file:
+      - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 50m
+        max-file: "3"
+      restart: always

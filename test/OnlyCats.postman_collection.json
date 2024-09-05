@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "c13d4de2-c785-4ecb-9f73-6da7df29f7c6",
+		"name": "All Cats",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3449986"
+	},
+	"item": [
+		{
+			"name": "cats _run",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"tests[\"cats has rowcount\"] = responseBody.has(\"rowCount\");",
+							"",
+							"pm.test(\"The response contains a valid PrimeVideo response\", function () { ",
+							"    var jsonData = pm.response.json();",
+							"    //console.log(jsonData)",
+							"    var ids = jsonData.rows.map((i) => i.rowItems);",
+							"    //console.log(ids)",
+							"    //if(globals.tvfeature=='primevideo'){",
+							"    //Concating all the array retrieved from arrayOfObject",
+							"    const concatAllArrays = [].concat(...ids)",
+							"        //console.log(concatAllArrays)    ",
+							"     _.each(concatAllArrays, (arrItem) => {",
+							"        //console.log(`Array contains ${arrItem.source}`);",
+							"        if (arrItem.source === 'PrimeVideo') {            ",
+							"            //throw new Error(`Array contains ${arrItem.source}`)",
+							"        console.log(`Array contains PRESENT ${arrItem.source}`);",
+							"        }else{",
+							"        //console.log(`Array contains NOT PRIMEVIDEO`);",
+							"        }",
+							"    })    ",
+							"    //} ",
+							"    pm.globals.unset(\"tvfeature\");   ",
+							"});",
+							"",
+							"",
+							"",
+							"tests[\"cats has rows\"] = responseBody.has(\"rows\");",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept-version",
+						"value": "{{accept-version}}",
+						"type": "text"
+					},
+					{
+						"key": "mboard",
+						"value": "{{mboard}}",
+						"type": "text"
+					},
+					{
+						"key": "keysha256",
+						"value": "{{keysha256}}",
+						"type": "text"
+					},
+					{
+						"key": "keymd5",
+						"value": "{{keymd5}}",
+						"type": "text"
+					},
+					{
+						"key": "factory",
+						"value": "{{factory}}",
+						"type": "text"
+					},
+					{
+						"key": "fotaversion",
+						"value": "{{fotaversion}}",
+						"type": "text"
+					},
+					{
+						"key": "package",
+						"value": "{{package}}",
+						"type": "text"
+					},
+					{
+						"key": "emac",
+						"value": "{{emac}}",
+						"type": "text"
+					},
+					{
+						"key": "cotaversion",
+						"value": "{{cotaversion}}",
+						"type": "text"
+					},
+					{
+						"key": "skinversion",
+						"value": "{{skinversion}}",
+						"type": "text"
+					},
+					{
+						"key": "wmac",
+						"value": "{{wmac}}",
+						"type": "text"
+					},
+					{
+						"key": "features",
+						"value": "{{features}}",
+						"type": "text"
+					},
+					{
+						"key": "vendor",
+						"value": "{{vendor}}",
+						"type": "text"
+					},
+					{
+						"key": "lversion",
+						"value": "{{lversion}}",
+						"type": "text"
+					},
+					{
+						"key": "model",
+						"value": "{{model}}",
+						"type": "text"
+					},
+					{
+						"key": "panel",
+						"value": "{{panel}}",
+						"type": "text"
+					},
+					{
+						"key": "brand",
+						"value": "{{brand}}",
+						"type": "text"
+					},
+					{
+						"key": "user-agent",
+						"value": "{{user-agent}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/cats",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"cats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

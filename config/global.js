@@ -1,0 +1,148 @@
+require('dotenv').config()
+/**
+ * We can now define the env variables so that production will be untouched.
+ * Make the .env with below lines where you want to run the code.
+ * cat .env
+ * IMAGE_PREFIX=http://static.cloudwalker.tv/images/tiles/
+ * DEFAULT_BACKDROP=http://dev-tvapi.cloudwalker.tv/assets/bg/default.webp
+ * PRIVATE_PASS_KEY=jdB!wVrVBAs9-pfgSzzwux&RLL@nte#C
+ * MONGO_URL=mongodb://192.168.1.9:27017/cwtx2devel
+ * HTTP_PORT=5080
+ * YOUTUBE_API_KEY=AIzaSyA5TSzLVRuhg41IwEIOvvQEyO08eWTyIBw
+ */
+var CW_CONFIG = {
+    IMAGE_PREFIX: process.env.IMAGE_PREFIX,
+    DEFAULT_BACKDROP: process.env.DEFAULT_BACKDROP,
+    PRIVATE_PASS_KEY: process.env.PRIVATE_PASS_KEY,
+    MONGO_URL: process.env.MONGO_URL,
+    HTTP_PORT: process.env.HTTP_PORT,
+    YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY,
+    MINIO_BUCKET: process.env.BUCKET,
+    MINIO_ACCESSKEY: process.env.ACCESS_KEY,
+    MINIO_SECRETKEY: process.env.SECRET_KEY,
+    MINIO_ENDPOINT: process.env.ENDPOINT,
+    CATS_PATH: process.env.CATS_PATH,
+    HIDE_VOOT_IF_PV_L1: process.env.HIDE_VOOT_IF_PV_L1
+}
+
+var PROFILE_PREF = {
+    "genres": [
+        "Action",
+        "Adventure",
+        "Animation",
+        "Art",
+        "Arts And Artist",
+        "Automobiles",
+        "Biography",
+        "Comedy",
+        "Conspiracy",
+        "Cookeryshow",
+        "Crime",
+        "Culture",
+        "Dance",
+        "Dark Comedy",
+        "Devotional",
+        "Disaster",
+        "Documentary",
+        "Drama",
+        "Drugs",
+        "Economics",
+        "Education",
+        "Entertainment",
+        "Environment",
+        "Family",
+        "Fantasy",
+        "Finance",
+        "Game Show",
+        "History",
+        "Horror",
+        "Infotainment",
+        "Investigation",
+        "Life",
+        "Medical",
+        "Military",
+        "Music",
+        "Musical",
+        "Mystery",
+        "Mythology",
+        "Nature",
+        "News",
+        "People",
+        "Police",
+        "Politics",
+        "Reality",
+        "Religion",
+        "Romance",
+        "Science",
+        "Sci-Fi",
+        "Short",
+        "Social",
+        "Society",
+        "Space",
+        "Sports",
+        "Standup Comedy",
+        "Suspence",
+        "Talk Show",
+        "Technology",
+        "Thriller",
+        "Travel",
+        "Visual",
+        "War",
+        "Western",
+        "Wildlife"
+    ],
+    "content_type": [
+        "Apps",
+        "Awards",
+        "Cookery",
+        "Devotional Videos",
+        "Documentary",
+        "Fitness",
+        "Funny Videos",
+        "Kids",
+        "Motivational Videos",
+        "Movie Trailers",
+        "Movies",
+        "Music ",
+        "Popular Videos",
+        "Series",
+        "Short Film",
+        "TalkShow",
+        "Wild Life"
+    ],
+    "languages": [
+        "Arabic",
+        "Assamese",
+        "Bengali",
+        "Czech",
+        "Dutch",
+        "English",
+        "Flemish",
+        "French",
+        "German",
+        "Gujarati",
+        "Hebrew",
+        "Hindi",
+        "Japanese",
+        "Kannada",
+        "Khmer",
+        "Korean",
+        "Malayalam",
+        "Mandarin",
+        "Marathi",
+        "Norwegian",
+        "Persian",
+        "Portuguese",
+        "Punjabi",
+        "Russian",
+        "Sanskrit",
+        "Spanish",
+        "Tamil",
+        "Telugu",
+        "Turkish",
+        "Urdu"
+    ]
+}
+
+exports.CW_CONFIG = CW_CONFIG;
+exports.PROFILE_PREF = PROFILE_PREF;
