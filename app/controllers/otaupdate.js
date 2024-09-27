@@ -247,7 +247,7 @@ exports.getCloudTVMarketUpdate = function (req, res, next) {
     debug("HEADER: version   ==== " + req.headers['accept-version']);
     debug("HEADER: UI ver    ==== " + req.params.uiVersion);
 
-    console.log("############# INSIDE FUNC VERSION MARKET ###################################");
+    debug("############# INSIDE FUNC VERSION MARKET ###################################");
     
 
     debug("**** ACCEPT VERSION***" + req.headers['accept-version']);
@@ -301,8 +301,8 @@ exports.getCloudTVMarketUpdate = function (req, res, next) {
                             } else {
                                 let OTACONFIGS_LIST = [];
                                 let result_feature = _authwalluser.map(a => a.features);
-                                console.log(" INSIDE PRESENT =======>", typeof (_authwalluser))
-                                console.log("PRESENT HERE Features=======>--------", result_feature[0])
+                                debug(" INSIDE PRESENT =======>", typeof (_authwalluser))
+                                debug("PRESENT HERE Features=======>--------", result_feature[0])
             
                                 ota_rules.find({"isEnabled":true}, (error, rules) => {
                                     if (error) {
@@ -316,39 +316,39 @@ exports.getCloudTVMarketUpdate = function (req, res, next) {
                                             if (element.isEnabled) {
                                                 var TEMP_COUNT = 0;
                                                 element.rules.map(condition => {
-                                                    console.log(`CHECKING - HEADERS[${condition.field}]:${req.headers[condition.field]} ${condition.operator} ${condition.values}`)
+                                                    debug(`CHECKING - HEADERS[${condition.field}]:${req.headers[condition.field]} ${condition.operator} ${condition.values}`)
                                                     var isPresent = (condition.values.indexOf(req.headers[condition.field]) > -1);
                                                     if (condition.operator === 'NIN')
                                                         isPresent = !isPresent;
                                                     if (isPresent)
                                                         TEMP_COUNT++;
-                                                    //console.log('isPresent: ' + isPresent)
+                                                    //debug('isPresent: ' + isPresent)
                                                 })
-                                                console.log('element.rules: ' + element.rules.length)
+                                                debug('element.rules: ' + element.rules.length)
                                                 if (TEMP_COUNT == element.rules.length) {
                                                     APPLICABLE_RULES.push(element);
                                                 }
                                             }
                                         })
-                                        console.log('APPLICABLE_RULES: ' + JSON.stringify(APPLICABLE_RULES, undefined, 2))
+                                        debug('APPLICABLE_RULES: ' + JSON.stringify(APPLICABLE_RULES, undefined, 2))
                                     }                                   
 
                                     /*
                                     get OTA_CONFIG madhun result ghya
                                     */
-                                    console.log("LENGTH",APPLICABLE_RULES.length)
+                                    debug("LENGTH",APPLICABLE_RULES.length)
 
                                     
                                     for(var i=0; i< APPLICABLE_RULES.length; i++){
                                         OTACONFIGS_LIST.push(APPLICABLE_RULES[i].ota_data)
-                                        console.log('APPLICABLE_RULES OTA RULES--->: ' + JSON.stringify(APPLICABLE_RULES[i].ota_data))
+                                        debug('APPLICABLE_RULES OTA RULES--->: ' + JSON.stringify(APPLICABLE_RULES[i].ota_data))
                                     }
                                     const flattened = [].concat(...OTACONFIGS_LIST);
-                                    console.log(flattened);
+                                    debug(flattened);
                                     var finalarray = removeDuplicates(flattened);
-                                    console.log("###############################################")
-                                    console.log('OTA CONFIGS: ' + JSON.stringify(finalarray));
-                                    console.log("###############################################")
+                                    debug("###############################################")
+                                    debug('OTA CONFIGS: ' + JSON.stringify(finalarray));
+                                    debug("###############################################")
                                     ota_configs.find({ 
                                         "_id" : {
                                             "$in" : 
@@ -361,9 +361,9 @@ exports.getCloudTVMarketUpdate = function (req, res, next) {
                                                                     res.json({ data: "Error occured:" + err })
                                                                     next(false)
                                                                 } else {
-                                                                    console.log("###############################################")
-                                                                    console.log('OTA FINL check CONFIGS: ' + JSON.stringify(_otadevices));
-                                                                    console.log("###############################################") 
+                                                                    debug("###############################################")
+                                                                    debug('OTA FINL check CONFIGS: ' + JSON.stringify(_otadevices));
+                                                                    debug("###############################################") 
                                                                     // rest of the updates other than launcher updates
                                                                     var isUpdateable = false
                                                                     // find cota entry and check if update is required.

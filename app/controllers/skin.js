@@ -44,10 +44,10 @@ exports.getSkinTV = function (req, res, next) {
     var header_vendor = req.headers['vendor'];
     var header_factory = req.headers['factory'];
     let header_skinversion = req.headers['skinversion'];
-    debug('============Get skin====================\n' + JSON.stringify(req.headers) + "\n========================================")
+    console.log('============Get skin====================\n' + JSON.stringify(req.headers) + "\n========================================")
 
     if (header_brand == "cloudtv" && header_vendor == "cloudtv" && header_factory == "cloudtv") {
-        debug("brand, vendor, factory is cloudtv -> give skin to this device!!")
+        console.log("brand, vendor, factory is cloudtv -> give skin to this device!!")
         let emactv = req.headers['emac'];
         let wmactv = req.headers['wmac'];
         authwalls.findOne({
@@ -56,7 +56,7 @@ exports.getSkinTV = function (req, res, next) {
         }, ' -created_at -updated_at -__v',
             function (err, _devicepresent) {
                 if (err) {
-                    debug('fatal eror on (authwalls.findOne)' + err);
+                    console.log('fatal eror on (authwalls.findOne)' + err);
                     res.status(500);
                     res.json({
                         data: "Error occured:" + err
@@ -80,17 +80,17 @@ exports.getSkinTV = function (req, res, next) {
                         }, '-_id -created_at -updated_at -__v',
                             function (err, _skintvDevices) {
                                 if (err) {
-                                    debug('fatal eror on (skintv_launchers.findOne)' + err);
+                                    console.log('fatal eror on (skintv_launchers.findOne)' + err);
                                     res.status(500);
                                     res.json({ data: "Error occured:" + err })
                                     next(false);
                                 } else {
-                                    debug('ALL DETAILS-->');
-                                    debug('brand->'+ _devicepresent.brand +'vendor'+ _devicepresent.vendor+'factory'+_devicepresent.factory+'keymd5'+ _devicepresent.keymd5.toUpperCase().replace(/[^a-zA-Z0-9]/g, "")+'board'+ _devicepresent.mboard);
+                                    console.log('ALL DETAILS-->');
+                                    console.log('brand->'+ _devicepresent.brand +'vendor'+ _devicepresent.vendor+'factory'+_devicepresent.factory+'keymd5'+ _devicepresent.keymd5.toUpperCase().replace(/[^a-zA-Z0-9]/g, "")+'board'+ _devicepresent.mboard);
                                     debug('*****************');
-                                    debug('Got this skin value from db :' + JSON.stringify(_skintvDevices));
+                                    console.log('Got this skin value from db :' + JSON.stringify(_skintvDevices));
                                     if (!isEmpty(_skintvDevices)) {
-                                        debug("Skin present for this device: " + JSON.stringify(_skintvDevices));
+                                        console.log("Skin present for this device: " + JSON.stringify(_skintvDevices));
 
                                         /*
                                         let finalOtaData = JSON.parse(JSON.stringzipify(_skintvDevices.skin));
@@ -129,19 +129,19 @@ exports.getSkinTV = function (req, res, next) {
                                         } else if (otaData.downloadUrl.indexOf(".zip") > -1) {
                                             logTV = logTV + "&src=tvlaupdate&type=zip";
                                         } else {
-                                            debug("wrong type of file!");
+                                            console.log("wrong type of file!");
                                         }
                                         otaData.downloadUrl = otaData.downloadUrl + logTV
                                         let finalOtaData = [];
                                         finalOtaData.push(otaData)
-                                        debug("response skin ota block : " + JSON.stringify(finalOtaData));
+                                        console.log("response skin ota block : " + JSON.stringify(finalOtaData));
                                         res.status(200);
                                         res.json(finalOtaData);
                                         res.end();
                                         req.ota = finalOtaData;
                                         next(true);
                                     } else {
-                                        debug("No skin defined for this device.");
+                                        console.log("No skin defined for this device.");
                                         res.status(500);
                                         res.json({ data: "Please check your internet connection (NOSKI)" });
                                         res.end()
@@ -150,7 +150,7 @@ exports.getSkinTV = function (req, res, next) {
                                 }
                             })
                     } else {
-                        debug('Error state: tv not found/ tv activation not found/ tv is not activated');
+                        console.log('Error state: tv not found/ tv activation not found/ tv is not activated');
                         res.status(401); // Unauthorized tv, as its not activated on authwall
                         res.json({ data: "Please check your internet connection (NOSKI)" });
                         res.end()
@@ -159,8 +159,8 @@ exports.getSkinTV = function (req, res, next) {
                 }
             });
     } else if ((!isEmpty(header_skinversion))) {
-        debug('###############SKIN UPDATION##################');
-        debug("brand, vendor, factory is UPDATE skin to this device!!");
+        console.log('###############SKIN UPDATION##################');
+        console.log("brand, vendor, factory is UPDATE skin to this device!!");
         let emactv = req.headers['emac'];
         let wmactv = req.headers['wmac'];
         authwalls.findOne({
@@ -197,7 +197,7 @@ exports.getSkinTV = function (req, res, next) {
                                     if (skinLength > 20 && skinArray.length >= 4) {
                                         skinversionNumber = Number(skinArray[0].replace(/[^0-9]/g, "") + skinArray[2].padStart(3, "0"))
                                     }
-                                    debug("=====DATA: ========len:" + skinLength + "==ver:" + skinversionNumber)
+                                    console.log("=====DATA: ========len:" + skinLength + "==ver:" + skinversionNumber)
 
                                     if (!isEmpty(_skintvDevices)) {
                                         //debug("Skin present for this device: " + JSON.stringify(_skintvDevices));
@@ -218,12 +218,12 @@ exports.getSkinTV = function (req, res, next) {
 
                                         let greater_skin = maxValue(skinarray)
                                         //debug("greater_skin-------->",greater_skin);
-                                        debug("SKIN********************",typeof(skinversionNumber))
-                                        debug("GREATER********************",typeof(greater_skin))
+                                        console.log("SKIN********************",typeof(skinversionNumber))
+                                        console.log("GREATER********************",typeof(greater_skin))
                                         if (!isEmpty(greater_skin) && (greater_skin !== skinversionNumber)) 
                                         {
                                            
-                                            debug("INSIDE UPDATION********************")
+                                            console.log("INSIDE UPDATION********************")
                                             let otaindex = skinarray.indexOf(greater_skin);
                                             //cdebug("otaindex-------->",otaindex);
 
@@ -235,12 +235,12 @@ exports.getSkinTV = function (req, res, next) {
                                             } else if (otaData.downloadUrl.indexOf(".zip") > -1) {
                                                 logTV = logTV + "&src=tvlaupdate&type=zip";
                                             } else {
-                                                debug("wrong type of file!");
+                                                console.log("wrong type of file!");
                                             }
                                             otaData.downloadUrl = otaData.downloadUrl + logTV
                                             let finalOtaData = [];
                                             finalOtaData.push(otaData)
-                                            debug("response skin ota block : " + JSON.stringify(finalOtaData));
+                                            console.log("response skin ota block : " + JSON.stringify(finalOtaData));
                                             res.status(200);
                                             res.json(finalOtaData);
                                             res.end();
@@ -248,14 +248,14 @@ exports.getSkinTV = function (req, res, next) {
                                             next(true);
 
                                         } else {
-                                            debug("Already Updated SKIN present");
+                                            console.log("Already Updated SKIN present");
                                             res.status(204);                                            
                                             res.end();
                                             next(false);
                                         }
 
                                     } else {
-                                        debug("No skin defined for this device.");
+                                        console.log("No skin defined for this device.");
                                         res.status(500);
                                         res.json({ data: "Please check your internet connection (NOSKI)" });
                                         res.end()
@@ -265,7 +265,7 @@ exports.getSkinTV = function (req, res, next) {
                                 }
                             })
                     } else {
-                        debug('Error state: tv not found/ tv activation not found/ tv is not activated');
+                        console.log('Error state: tv not found/ tv activation not found/ tv is not activated');
                         res.status(401); // Unauthorized tv, as its not activated on authwall
                         res.json({ data: "Please check your internet connection (NOSKI)" });
                         res.end()
@@ -275,7 +275,7 @@ exports.getSkinTV = function (req, res, next) {
             });
     }
     else {
-        debug("brand, vendor, factory is NOT cloudtv -> serve regular tv-la-update logic!!")
+        console.log("brand, vendor, factory is NOT cloudtv -> serve regular tv-la-update logic!!")
         lvLength = req.headers["lversion"].length
         lvArray = req.headers["lversion"].split('-')
         debug(lvArray)
@@ -283,7 +283,7 @@ exports.getSkinTV = function (req, res, next) {
             lvNumber = Number(lvArray[0].replace(/[^0-9]/g, "") + lvArray[1].padStart(3, "0"))
             lvType = lvArray[3].toUpperCase()
         }
-        debug("=====DATA: ========len:" + lvLength + "==ver:" + lvNumber + "==type:" + lvType)
+        console.log("=====DATA: ========len:" + lvLength + "==ver:" + lvNumber + "==type:" + lvType)
         // ############# Check OTA for individual emac 
         var emactv = req.headers['emac'];
         if (!isEmpty(emactv)) {
@@ -320,7 +320,7 @@ exports.getSkinTV = function (req, res, next) {
                                 }
                                 otaData.downloadUrl = otaData.downloadUrl + logTV
                             });
-                            debug("response ota block : " + JSON.stringify(finalOtaData));
+                            console.log("response ota block : " + JSON.stringify(finalOtaData));
                             res.status(200);
                             res.json(finalOtaData);
                             res.end();
@@ -345,7 +345,7 @@ exports.getSkinTV = function (req, res, next) {
                                             res_ota.push(data.ota);
                                             res.status(200);
                                             res.json(res_ota);
-                                            debug('sending response as : res_ota: ' + res_ota)
+                                            console.log('sending response as : res_ota: ' + res_ota)
                                             res.end();
                                             req.ota = res_ota;
                                             next(true);
